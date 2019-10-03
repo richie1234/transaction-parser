@@ -1,0 +1,12 @@
+**/.idea/*
+**/.gradle/**
+**/build/**
+*.iml
+**/target/**
+deploy
+logs
+classes
+*.bak
+*.pdf
+.DS_Store
+package-lock.json
