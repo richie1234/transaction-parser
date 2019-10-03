@@ -25,7 +25,7 @@ public class Main {
                 .getOrCreate();
         Dataset<Row> dataset;
 
-        if (args.length == 1 ) {
+        if (args.length == 4 ) {
             dataset = spark.read()
                     .option("delimiter", ",")
                     .option("header", "true")
