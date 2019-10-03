@@ -1,4 +1,4 @@
-# Transaction Analyser  
+# Transaction Analyser/Parser  
 
 This program parse and analyse a csv file containing transactions records & report 
 * The relative account balance
