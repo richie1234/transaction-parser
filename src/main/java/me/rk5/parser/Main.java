@@ -23,7 +23,7 @@ public class Main {
         SparkSession spark = SparkSession.builder().appName("transactions-parser").master("local[*]")
                 .config("spark.sql.warehouse.dir","file:///s3:/logs/")
                 .getOrCreate();
-        Dataset<Row> dataset;
+        Dataset<Row> dataset = null;
 
         if (args.length == 4 ) {
             dataset = spark.read()
@@ -32,12 +32,9 @@ public class Main {
                     .option("ignoreLeadingWhiteSpace","true")
                     .option("ignoreTrailingWhiteSpace","true").csv(args[0]);
         } else {
-            dataset = spark.read()
-                    .option("delimiter", ",")
-                    .option("header", "true")
-                    .option("ignoreLeadingWhiteSpace","true")
-                    .option("ignoreTrailingWhiteSpace","true")
-                    .csv("src/main/resources/transactions.csv");
+
+            System.out.println("Invalid input args values");
+            System.exit(0);
         }
 
 
