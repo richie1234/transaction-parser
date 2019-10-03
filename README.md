@@ -1,4 +1,4 @@
-# HTTP Requests Parser  
+# Transaction Analyser  
 
 This program parse and analyse a csv file containing transactions records & report 
 * The relative account balance
