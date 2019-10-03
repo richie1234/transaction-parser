@@ -1,15 +1,15 @@
 # HTTP Requests Parser  
 
-This program parses a log file containing HTTP requests & report on its contents.
-
-* The number of unique IP addresses
-* The top 3 most visited URLs
-* The top 3 most active IP addresses
+This program parse and analyse a csv file containing transactions records & report 
+* The relative account balance
+* Number of transactions
 
 
 ## Assumptions
-* The log file contains millions of rows
-* URLs & IP addresses are ordered as strings
+* The cvs file contains millions of transactions
+* Input file and records are all in a valid format
+* Transaction are recorded in order
+
 
 ## Required
 * Java 8/JDK 8
@@ -19,7 +19,7 @@ This program parses a log file containing HTTP requests & report on its contents
 Framework / library | Description
 --------------------|------------
 Java 8              | Java SE
-Spark               | DataFrames API/SQL
+Spark               | DataFrames/DataSet API
 Gradle              | dependency management and build tool
 Junit               | unit tests
 Git                 | version control
@@ -32,7 +32,7 @@ Git                 | version control
 import to IntelliJ IDEA
 
 
-OR use terminal
+or use terminal
 
 ##### Install dependencies
     
@@ -50,8 +50,8 @@ $ ./gradlew test
 ##### Run :
 
 ```
-$ ./gradlew run
-$ ./gradlew run --args='{PATH To Log File}'
+$ ./gradlew run --args='{List of parameters}'
+$ ./gradlew run --args='src/main/resources/transactions.csv ACC334455 "20/10/2018 12:00:00" "20/10/2018 19:00:00"'
 ```
 
 
