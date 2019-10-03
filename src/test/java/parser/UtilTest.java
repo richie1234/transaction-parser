@@ -31,8 +31,6 @@ public class UtilTest {
             .config("spark.sql.warehouse.dir","file:///s3:/logs/")
             .getOrCreate();
 
-
-
     List<Row> inMemory = new ArrayList<>();
     Dataset<Row> dataset;
     private StructType structType;
@@ -154,7 +152,6 @@ public class UtilTest {
         Dataset<Transaction> paymentDataset = util.getPaymentDataset(results, fromDate, toDate);
         List<Transaction> reversals = util.getTotalReversals(util.getReversalDataset(results), paymentDataset);
         double totalValueOFreversals = reversals.stream().mapToDouble(i -> i.getAmount()).sum();;
-
 
         assertTrue(reversals.size() == 1);
         assertEquals(totalValueOFreversals ,10.5, 0.00000001);

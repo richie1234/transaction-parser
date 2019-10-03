@@ -42,7 +42,6 @@ public class Main {
 
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
         String fromDate = new java.sql.Timestamp(dateFormat.parse(args[2]).getTime()).toString();
         String toDate = new java.sql.Timestamp(dateFormat.parse(args[3]).getTime()).toString();
 
@@ -51,26 +50,17 @@ public class Main {
         Dataset<Transaction> paymentDataset = Util.getPaymentDataset(transactionDataset, fromDate, toDate);
         Dataset<Transaction> reversalDataset = Util.getReversalDataset(transactionDataset);
 
-
-
-
-        double totalPayments = Util.getTotalPayments(paymentDataset);
-
-        System.out.println(totalPayments);
-
         List<Transaction> totalReversals = Util.getTotalReversals(reversalDataset, paymentDataset);
 
-        System.out.println(totalReversals);
-
-
-        Print(totalPayments, totalReversals);
+        Print(totalReversals, paymentDataset);
         spark.close();
     }
 
-    private static void Print(double totalPayments, List<Transaction> reversals) {
+    private static void Print(List<Transaction> reversals, Dataset<Transaction> paymentDataset) {
+        double totalPayments = Util.getTotalPayments(paymentDataset);
         double totalReversals = reversals.stream().mapToDouble(i -> i.getAmount()).sum();
         System.out.println("Relative balance for the period is: " + (totalPayments + totalReversals));
-        System.out.println("Number of transactions included is: " + reversals.size());
+        System.out.println("Number of transactions included is: " + (paymentDataset.collectAsList().size() - reversals.size()));
 
     }
 

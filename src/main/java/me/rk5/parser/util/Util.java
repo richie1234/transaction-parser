@@ -68,7 +68,6 @@ public class Util {
         double totalPayments = 0;
 
         for (int i = 0; i < paymentDatasetList.size(); i++) {
-
             totalPayments = totalPayments - paymentDatasetList.get(i).getAmount();
 
         }
