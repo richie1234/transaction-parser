@@ -50,17 +50,17 @@ public class Main {
         Dataset<Transaction> paymentDataset = Util.getPaymentDataset(transactionDataset, fromDate, toDate);
         Dataset<Transaction> reversalDataset = Util.getReversalDataset(transactionDataset);
 
-        List<Transaction> totalReversals = Util.getTotalReversals(reversalDataset, paymentDataset);
+        List<Transaction> transactionReversals = Util.findReversals(reversalDataset, paymentDataset);
 
-        Print(totalReversals, paymentDataset);
+        Print(transactionReversals, paymentDataset);
         spark.close();
     }
 
-    private static void Print(List<Transaction> reversals, Dataset<Transaction> paymentDataset) {
+    private static void Print(List<Transaction> transactionReversals, Dataset<Transaction> paymentDataset) {
         double totalPayments = Util.getTotalPayments(paymentDataset);
-        double totalReversals = reversals.stream().mapToDouble(i -> i.getAmount()).sum();
-        System.out.println("Relative balance for the period is: " + (totalPayments + totalReversals));
-        System.out.println("Number of transactions included is: " + (paymentDataset.collectAsList().size() - reversals.size()));
+        double totalTransactionReversals = transactionReversals.stream().mapToDouble(i -> i.getAmount()).sum();
+        System.out.println("Relative balance for the period is: " + (totalPayments + totalTransactionReversals));
+        System.out.println("Number of transactions included is: " + (paymentDataset.collectAsList().size() - transactionReversals.size()));
 
     }
 

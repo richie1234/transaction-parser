@@ -74,20 +74,17 @@ public class Util {
         return totalPayments;
     }
 
-    public static List<Transaction> getTotalReversals(Dataset<Transaction> reversalDataset, Dataset<Transaction> paymentDataset) {
+    public static List<Transaction> findReversals(Dataset<Transaction> reversalDataset, Dataset<Transaction> paymentDataset) {
 
         List<Transaction> allReversals = reversalDataset.collectAsList();
         List<Transaction> paymentDatasetList = paymentDataset.collectAsList();
         List<Transaction> reversals = new ArrayList<>();
-
-        double totalReversals = 0;
 
         for (int i = 0; i < allReversals.size(); i++) {
 
             for (int j = 0; j < paymentDatasetList.size(); j++) {
 
                 if(allReversals.get(i).getRelatedTransaction().equals(paymentDatasetList.get(j).getTransactionId())) {
-                    totalReversals = totalReversals + paymentDatasetList.get(j).getAmount();
                     reversals.add(allReversals.get(i));
                 }
             }

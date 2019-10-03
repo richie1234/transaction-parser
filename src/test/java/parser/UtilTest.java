@@ -150,7 +150,7 @@ public class UtilTest {
         String fromDate = new java.sql.Timestamp(dateFormat.parse("20/10/2018 12:00:00").getTime()).toString();
         String toDate = new java.sql.Timestamp(dateFormat.parse("20/10/2018 19:00:00").getTime()).toString();
         Dataset<Transaction> paymentDataset = util.getPaymentDataset(results, fromDate, toDate);
-        List<Transaction> reversals = util.getTotalReversals(util.getReversalDataset(results), paymentDataset);
+        List<Transaction> reversals = util.findReversals(util.getReversalDataset(results), paymentDataset);
         double totalValueOFreversals = reversals.stream().mapToDouble(i -> i.getAmount()).sum();;
 
         assertTrue(reversals.size() == 1);
