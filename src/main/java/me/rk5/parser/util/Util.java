@@ -7,7 +7,10 @@ import org.apache.spark.sql.types.DataTypes;
 import me.rk5.parser.dto.Transaction;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.to_timestamp;
@@ -79,17 +82,16 @@ public class Util {
         List<Transaction> allReversals = reversalDataset.collectAsList();
         List<Transaction> paymentDatasetList = paymentDataset.collectAsList();
         List<Transaction> reversals = new ArrayList<>();
-
-        for (int i = 0; i < allReversals.size(); i++) {
+        Set<String> allReversalsSet = new HashSet<>(allReversals.stream().map(Transaction::getRelatedTransaction)
+                .collect(Collectors.toList()));
 
             for (int j = 0; j < paymentDatasetList.size(); j++) {
 
-                if(allReversals.get(i).getRelatedTransaction().equals(paymentDatasetList.get(j).getTransactionId())) {
-                    reversals.add(allReversals.get(i));
+                if(allReversalsSet.contains(paymentDatasetList.get(j).getTransactionId())) {
+                    reversals.add(paymentDatasetList.get(j));
                 }
             }
 
-        }
         return reversals;
 
     }
