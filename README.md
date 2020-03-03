@@ -12,7 +12,7 @@ This program parse and analyse a csv file containing transactions records & repo
 
 
 ## Required
-* Java 8/JDK 8
+* Java 8/JDK 8 (Spark libraries doesn't support Java 9+)
 
 ## Technology stack
 
